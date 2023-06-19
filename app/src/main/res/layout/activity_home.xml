@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Cabeçalho -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <!-- Botão do menu -->
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_menu" />
+
+        <!-- Título da página -->
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MyCar"
+            android:textSize="24sp"
+            android:layout_marginStart="16dp"/>
+
+    </LinearLayout>
+
+    <!-- Botão Histórico de manutenções -->
+    <Button
+        android:id="@+id/history_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Histórico de manutenções"
+        android:layout_below="@id/header_layout"
+        android:layout_margin="16dp"/>
+
+    <!-- Botão Multas -->
+    <Button
+        android:id="@+id/tickets_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Multas"
+        android:layout_below="@id/history_button"
+        android:layout_margin="16dp"/>
+
+    <!-- Botão Componentes -->
+    <Button
+        android:id="@+id/components_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Componentes"
+        android:layout_below="@id/tickets_button"
+        android:layout_margin="16dp"/>
+
+    <!-- Botão Veículos -->
+    <Button
+        android:id="@+id/vehicles_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Veículos"
+        android:layout_below="@id/components_button"
+        android:layout_margin="16dp"/>
+
+</RelativeLayout>
