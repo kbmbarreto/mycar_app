@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_oficinas"
+        android:title="Oficinas" />
+    <item
+        android:id="@+id/menu_veiculos"
+        android:title="Veículos" />
+    <item
+        android:id="@+id/menu_multas"
+        android:title="Multas" />
+    <item
+        android:id="@+id/menu_lista_compras"
+        android:title="Lista de compras" />
+    <item
+        android:id="@+id/menu_servicos"
+        android:title="Serviços" />
+    <item
+        android:id="@+id/menu_fabricantes"
+        android:title="Fabricantes" />
+    <item
+        android:id="@+id/menu_componentes"
+        android:title="Componentes" />
+    <item
+        android:id="@+id/menu_historico_manutencoes"
+        android:title="Histórico de manutenções" />
+    <item
+        android:id="@+id/menu_lgpd"
+        android:title="LGPD - Sol. exclusão de dados pessoais" />
+    <item
+        android:id="@+id/menu_sair"
+        android:title="Sair" />
+</menu>

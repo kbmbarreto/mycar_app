@@ -15,7 +15,8 @@
 
         <!-- Atividade de login -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
+            android:theme="@style/Base.Theme.Mycar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +25,15 @@
             </intent-filter>
         </activity>
 
-        <!-- Tela de menu -->
+        <!-- Tela principal -->
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+
 
     </application>
 
