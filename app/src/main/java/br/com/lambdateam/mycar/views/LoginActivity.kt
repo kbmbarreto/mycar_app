@@ -1,9 +1,10 @@
-package br.com.lambdateam.mycar
+package br.com.lambdateam.mycar.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import br.com.lambdateam.mycar.R
 
 class LoginActivity : AppCompatActivity() {
 

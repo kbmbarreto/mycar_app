@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="#6437B4"
         android:gravity="center_vertical"
-        android:padding="16dp"
-        android:background="#6437B4">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageButton
             android:id="@+id/menu_button"
@@ -21,278 +23,49 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_menu"
-            android:contentDescription="Abrir menu" />
+            android:contentDescription="Abrir menu"
+            android:src="@drawable/ic_menu" />
 
         <TextView
             android:id="@+id/title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
             android:text="MyCar"
-            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="34sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/history_maintenances"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fc_home_menu"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header_layout"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/icon_maintenance"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/icon_maintenance" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvCardMaintenanceHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textStyle="bold"
-                    android:text="Histórico de manutenções" />
-
-                <TextView
-                    android:id="@+id/tvDescriptionMaintenanceHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="@style/TextAppearance.Compat.Notification.Info"
-                    android:text="Controle, gerencie e consulte o histórico de manutenção de seus veículos sempre que precisar." />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/services"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/history_maintenances"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/icon_services"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/icon_service" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvCardServices"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textStyle="bold"
-                    android:text="Serviços" />
-
-                <TextView
-                    android:id="@+id/tvDescriptionServices"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="@style/TextAppearance.Compat.Notification.Info"
-                    android:text="Cadastre, verifique e consulte seus serviços agendados, bem como suas ordens de serviço arquivadas." />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/history_traffic_ticket"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/services"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/icon_traffic_ticket"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/icon_traffic_ticket" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvCardTrafficTicket"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textStyle="bold"
-                    android:text="Multas" />
-
-                <TextView
-                    android:id="@+id/tvDescriptionTrafficTicket"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="@style/TextAppearance.Compat.Notification.Info"
-                    android:text="Tenha total controle sobre suas multas, controlando a qual veículo pertence." />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/vehicles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/history_traffic_ticket"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/icon_vehicle"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/icon_vehicle" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvCardVehicles"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:textStyle="bold"
-                    android:text="Veículos" />
-
-                <TextView
-                    android:id="@+id/tvDescriptionVehicles"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="@style/TextAppearance.Compat.Notification.Info"
-                    android:text="Cadastre seus veículos para começar a registrar todo o histórico de manutenção." />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/home_nav_graph" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/vehicles">
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:text="Versão 1.0.0"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:gravity="center_horizontal"
-            android:textSize="16sp"
-            android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal"
-            />
+            android:gravity="center_horizontal"
+            android:text="Versão 1.0.0"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

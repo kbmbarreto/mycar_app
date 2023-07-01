@@ -15,7 +15,7 @@
 
         <!-- Atividade de login -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".views.LoginActivity"
             android:theme="@style/Base.Theme.Mycar"
             android:exported="true">
             <intent-filter>
@@ -27,11 +27,11 @@
 
         <!-- Tela principal -->
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".views.LoginActivity" />
         </activity>
 
 

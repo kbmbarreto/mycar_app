@@ -1,25 +1,30 @@
-package br.com.lambdateam.mycar
+package br.com.lambdateam.mycar.views
 
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.NavHostFragment
+import br.com.lambdateam.mycar.R
 
 class MainActivity : AppCompatActivity() {
+
+    private val navHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.fc_home_menu) as NavHostFragment }
+    private val menuButton by lazy { findViewById<ImageButton>(R.id.menu_button) }
+    private val title by lazy { findViewById<TextView>(R.id.title_textview) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val menuButton = findViewById<ImageButton>(R.id.menu_button)
-        val historyCard = findViewById<CardView>(R.id.history_maintenances)
-        val servicesCard = findViewById<CardView>(R.id.services)
-        val trafficTicketCard = findViewById<CardView>(R.id.history_traffic_ticket)
-        val vehiclesCard = findViewById<CardView>(R.id.vehicles)
+        setupMenuButtonAction()
+        setupNavigation()
+    }
 
+    private fun setupMenuButtonAction() {
         menuButton.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view)
             popupMenu.inflate(R.menu.menu_main)
@@ -30,38 +35,47 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_veiculos -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_multas -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_lista_compras -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_servicos -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_fabricantes -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_componentes -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_historico_manutencoes -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_lgpd -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
                     }
+
                     R.id.menu_sair -> {
                         Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
                         true
@@ -73,21 +87,27 @@ class MainActivity : AppCompatActivity() {
 
             popupMenu.show()
         }
+    }
 
-        historyCard.setOnClickListener {
-            Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
-        }
+    private fun setupNavigation() {
+        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nav_home_fragment -> {
+                    title.text = "MyCar"
+                    menuButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu))
+                    setupMenuButtonAction()
+                }
+                R.id.nav_maintenance_history_fragment -> {
+                    title.text = "Manutenções"
+                    menuButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home))
+                    menuButton.setOnClickListener {
+                        navHostFragment.navController.navigate(R.id.nav_home_fragment)
+                    }
+                }
+                else -> {
 
-        servicesCard.setOnClickListener {
-            Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
-        }
-
-        trafficTicketCard.setOnClickListener {
-            Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
-        }
-
-        vehiclesCard.setOnClickListener {
-            Toast.makeText(this, "Em implementação", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
