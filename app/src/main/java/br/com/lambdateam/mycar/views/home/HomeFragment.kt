@@ -1,4 +1,4 @@
-package br.com.lambdateam.mycar.views
+package br.com.lambdateam.mycar.views.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home_fragment"
-        android:name="br.com.lambdateam.mycar.views.HomeFragment"
+        android:name="br.com.lambdateam.mycar.views.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_fragment_to_nav_maintenance_history_fragment"

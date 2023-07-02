@@ -15,7 +15,7 @@ class UserSessionImpl(context: Context) : UserSession {
         const val TOKEN_KEY = "TOKEN_KEY"
     }
 
-    override fun setToken(token: String) {
+    override fun setToken(token: String?) {
         sharedPreferences.edit().putString(TOKEN_KEY, token).apply()
     }
 

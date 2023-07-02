@@ -1,6 +1,9 @@
 package br.com.lambdateam.mycar.model.utils
 
+import android.content.Context
 import android.os.CountDownTimer
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import java.text.NumberFormat
@@ -21,6 +24,15 @@ fun EditText.afterTextChangedDelayed(delayTime: Long = 500, afterTextChanged: (S
     }
 }
 
+fun delay(time: Long = 500, run: () -> Unit) {
+    object : CountDownTimer(time, 1000) {
+        override fun onTick(millisUntilFinished: Long) {}
+        override fun onFinish() {
+            run()
+        }
+    }.start()
+}
+
 fun convertToCurrencyFormat(value: Double): String {
     val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
     return currencyFormat.format(value)
@@ -31,4 +43,10 @@ fun convertDateFormat(inputDate: String): String {
     val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val date: Date? = inputFormat.parse(inputDate)
     return date?.let { outputFormat.format(it) }.toString()
+}
+
+fun View.closeKeyboard() {
+    val imm: InputMethodManager =
+        this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(this.windowToken, 0)
 }

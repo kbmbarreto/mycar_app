@@ -25,4 +25,6 @@
         <item quantity="one">%d resultado</item>
         <item quantity="other">%d resultados</item>
     </plurals>
+    <string name="login_error_description">Email e/ou senha incorretos, verifique e tente novamente!</string>
+    <string name="loading">Carregando</string>
 </resources>

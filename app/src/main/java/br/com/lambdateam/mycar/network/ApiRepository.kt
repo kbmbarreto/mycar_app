@@ -1,14 +1,25 @@
 package br.com.lambdateam.mycar.network
 
+import br.com.lambdateam.mycar.model.login.LoginDTO
+import br.com.lambdateam.mycar.model.login.LoginResponse
 import br.com.lambdateam.mycar.model.maintenance.Maintenance
+import br.com.lambdateam.mycar.sharedpreferences.UserSession
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
-class ApiRepository(private val api: Api) {
+class ApiRepository(private val api: Api, private val userSession: UserSession) {
 
     suspend fun getMaintenanceWithDetails(): Response<List<Maintenance>> {
         return try {
-            api.getMaintenancesWithDetails()
+            api.getMaintenancesWithDetails("Bearer ${userSession.getToken()}")
+        } catch (_: Exception) {
+            Response.error(400, "".toResponseBody())
+        }
+    }
+
+    suspend fun login(loginDTO: LoginDTO): Response<LoginResponse> {
+        return try {
+            api.login(loginDTO)
         } catch (_: Exception) {
             Response.error(400, "".toResponseBody())
         }
