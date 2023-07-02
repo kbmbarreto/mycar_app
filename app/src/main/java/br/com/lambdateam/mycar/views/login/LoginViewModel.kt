@@ -48,6 +48,7 @@ class LoginViewModel(private val repository: ApiRepository, private val userSess
             response.isSuccessful && response.body()?.token != null -> {
                 userSession.setToken(response.body()!!.token!!)
                 _loginResponse.postValue(response.body())
+                cleanValues()
             }
 
             else -> {
@@ -62,5 +63,10 @@ class LoginViewModel(private val repository: ApiRepository, private val userSess
 
     fun setPassword(password: String) {
         _password.value = password
+    }
+
+    private fun cleanValues() {
+        _email.postValue("")
+        _password.postValue("")
     }
 }

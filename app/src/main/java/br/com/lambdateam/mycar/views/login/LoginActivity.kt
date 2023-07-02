@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginResponse.observe(this) {
             delay {
+                cleanFields()
                 openMainActivity()
             }
         }
@@ -73,6 +74,11 @@ class LoginActivity : AppCompatActivity() {
 
             else -> {}
         }
+    }
+
+    private fun cleanFields() {
+        etEmail.setText("")
+        etPassword.setText("")
     }
 
     private fun setupListeners() {
