@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ class MaintenanceHistoryFragment : Fragment() {
 
     private lateinit var rvMaintenance: RecyclerView
     private lateinit var vfMaintenance: ViewFlipper
+    private lateinit var tvCount: TextView
     private lateinit var etSearch: EditText
     private val maintenanceAdapter = MaintenanceHistoryAdapter()
     private val viewModel by inject<MaintenanceViewModel>()
@@ -43,12 +45,14 @@ class MaintenanceHistoryFragment : Fragment() {
     private fun setupSearch() {
         etSearch.afterTextChangedDelayed {
             maintenanceAdapter.search(it)
+            tvCount.text = resources.getQuantityString(R.plurals.result_plurals, maintenanceAdapter.itemCount,  maintenanceAdapter.itemCount)
         }
     }
 
     private fun setupListeners() {
         viewModel.maintenances.observe(viewLifecycleOwner) { list ->
             list?.let {
+                tvCount.text = resources.getQuantityString(R.plurals.result_plurals, it.size,  it.size)
                 maintenanceAdapter.setItems(it)
             }
         }
@@ -87,6 +91,7 @@ class MaintenanceHistoryFragment : Fragment() {
             rvMaintenance = it.findViewById(R.id.rv_maintenance_history)
             vfMaintenance = it.findViewById(R.id.vf_maintenance_history)
             etSearch = it.findViewById(R.id.et_maintenance_history_search)
+            tvCount = it.findViewById(R.id.tv_maintenance_history_count)
         }
     }
 }

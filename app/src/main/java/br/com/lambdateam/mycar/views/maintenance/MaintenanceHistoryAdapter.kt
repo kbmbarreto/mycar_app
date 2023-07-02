@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.lambdateam.mycar.R
 import br.com.lambdateam.mycar.model.maintenance.Maintenance
+import br.com.lambdateam.mycar.model.utils.convertDateFormat
+import br.com.lambdateam.mycar.model.utils.convertToCurrencyFormat
 
 class MaintenanceHistoryAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -59,7 +61,7 @@ class MaintenanceHistoryAdapter :
         }
     }
 
-    inner class MaintenanceItem(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MaintenanceItem(val view: View) : RecyclerView.ViewHolder(view) {
         private val tvTitle by lazy { view.findViewById<TextView>(R.id.tv_maintenance_history_title) }
         private val tvDate by lazy { view.findViewById<TextView>(R.id.tv_maintenance_history_date) }
         private val tvKm by lazy { view.findViewById<TextView>(R.id.tv_maintenance_history_km) }
@@ -69,11 +71,14 @@ class MaintenanceHistoryAdapter :
 
         fun bind(item: Maintenance) {
             tvTitle.text = item.vehicle?.description
-            tvDate.text = item.maintenanceDate
-            tvKm.text = item.km.toString()
+            tvDate.text = convertDateFormat(item.maintenanceDate.toString())
+            tvKm.text =
+                StringBuilder(item.km.toString()).append(view.context.getString(R.string.km))
             tvType.text = item.maintenanceType?.maintenanceType
             tvComponent.text = item.component?.component
-            tvAmount.text = item.amount.toString()
+            item.amount?.let {
+                tvAmount.text = convertToCurrencyFormat(it)
+            }
         }
     }
 }

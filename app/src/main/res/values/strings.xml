@@ -10,6 +10,7 @@
     <string name="e_mail">E-mail</string>
     <string name="password">Senha</string>
     <string name="enter">Entrar</string>
+    <string name="km">KM</string>
     <string name="forgot_my_password">Esqueci minha senha</string>
     <string name="new_user">Novo usuário</string>
     <string name="vehicles">Veículos</string>
@@ -20,4 +21,8 @@
     <string name="services_feature_description">Cadastre, verifique e consulte seus serviços agendados, bem como suas ordens de serviço arquivadas.</string>
     <string name="maintenance_history">Histórico de manutenções</string>
     <string name="maintenance_feature_description">Controle, gerencie e consulte o histórico de manutenção de seus veículos sempre que precisar.</string>
+    <plurals name="result_plurals">
+        <item quantity="one">%d resultado</item>
+        <item quantity="other">%d resultados</item>
+    </plurals>
 </resources>
