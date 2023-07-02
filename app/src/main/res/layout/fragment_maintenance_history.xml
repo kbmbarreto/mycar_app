@@ -5,6 +5,7 @@
     android:id="@+id/vf_maintenance_history"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".views.maintenance.MaintenanceHistoryFragment">
 
     <LinearLayout
@@ -29,22 +30,17 @@
                 android:imeOptions="actionDone"
                 android:inputType="text" />
 
-            <androidx.cardview.widget.CardView
+            <ImageView
+                android:id="@+id/iv_maintenance_history_clean_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_margin="8dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/primary"
-                app:cardCornerRadius="8dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/ic_search" />
-            </androidx.cardview.widget.CardView>
+                android:src="@drawable/ic_close"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
