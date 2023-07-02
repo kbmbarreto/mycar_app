@@ -10,7 +10,6 @@
         android:id="@+id/history_maintenances"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header_layout"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
@@ -48,7 +47,7 @@
                     android:id="@+id/tvCardMaintenanceHistory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Histórico de manutenções"
+                    android:text="@string/maintenance_history"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textStyle="bold" />
 
@@ -57,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Controle, gerencie e consulte o histórico de manutenção de seus veículos sempre que precisar."
+                    android:text="@string/maintenance_feature_description"
                     android:textAppearance="@style/TextAppearance.Compat.Notification.Info" />
 
             </LinearLayout>
@@ -69,7 +68,6 @@
         android:id="@+id/services"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/history_maintenances"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
@@ -107,7 +105,7 @@
                     android:id="@+id/tvCardServices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Serviços"
+                    android:text="@string/services"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textStyle="bold" />
 
@@ -116,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Cadastre, verifique e consulte seus serviços agendados, bem como suas ordens de serviço arquivadas."
+                    android:text="@string/services_feature_description"
                     android:textAppearance="@style/TextAppearance.Compat.Notification.Info" />
 
             </LinearLayout>
@@ -128,7 +126,6 @@
         android:id="@+id/history_traffic_ticket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/services"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
@@ -166,7 +163,7 @@
                     android:id="@+id/tvCardTrafficTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Multas"
+                    android:text="@string/tickets"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textStyle="bold" />
 
@@ -175,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Tenha total controle sobre suas multas, controlando a qual veículo pertence."
+                    android:text="@string/tickets_feature_description"
                     android:textAppearance="@style/TextAppearance.Compat.Notification.Info" />
 
             </LinearLayout>
@@ -187,7 +184,6 @@
         android:id="@+id/vehicles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/history_traffic_ticket"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
@@ -225,7 +221,7 @@
                     android:id="@+id/tvCardVehicles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Veículos"
+                    android:text="@string/vehicles"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textStyle="bold" />
 
@@ -234,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Cadastre seus veículos para começar a registrar todo o histórico de manutenção."
+                    android:text="@string/vehicles_feature_description"
                     android:textAppearance="@style/TextAppearance.Compat.Notification.Info" />
 
             </LinearLayout>

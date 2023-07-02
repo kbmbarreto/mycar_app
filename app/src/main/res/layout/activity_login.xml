@@ -8,9 +8,9 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:text="MyCar"
+        android:layout_marginTop="20dp"
+        android:text="@string/app_name"
         android:textSize="50sp"
         android:textStyle="bold" />
 
@@ -19,9 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewTitle"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:text="Sistema gerenciador de manutenção veicular"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_description"
         android:textSize="18sp" />
 
     <EditText
@@ -29,18 +29,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewSubtitle"
-        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:hint="E-mail" />
+        android:layout_marginTop="50dp"
+        android:hint="@string/e_mail" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
-        android:hint="Senha"
+        android:layout_marginTop="8dp"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <Button
@@ -48,28 +48,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:text="Entrar" />
+        android:layout_marginTop="20dp"
+        android:text="@string/enter" />
 
     <TextView
         android:id="@+id/textViewForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonLogin"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
         android:layout_centerHorizontal="true"
-        android:text="Esqueci minha senha" />
+        android:layout_marginTop="20dp"
+        android:text="@string/forgot_my_password"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewNewUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewForgotPassword"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
         android:layout_centerHorizontal="true"
-        android:text="Novo usuário" />
+        android:layout_marginTop="20dp"
+        android:text="@string/new_user"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

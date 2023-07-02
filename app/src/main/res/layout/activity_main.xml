@@ -10,7 +10,7 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#6437B4"
+        android:background="@color/primary"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -23,7 +23,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:contentDescription="Abrir menu"
+            android:contentDescription="@string/open_menu"
             android:src="@drawable/ic_menu" />
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:text="MyCar"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="34sp"
             android:textStyle="bold" />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:text="Versão 1.0.0"
+            android:text="@string/app_version"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textColor="@color/black"
             android:textSize="16sp"

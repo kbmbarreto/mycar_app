@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">MyCar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_version">Versão 1.0.0</string>
+    <string name="app_description">Sistema gerenciador de manutenção veicular</string>
+    <string name="maintenances">Manutenções</string>
+    <string name="none_maintenances">Nenhuma manutenção ainda</string>
+    <string name="search">Pesquisar</string>
+    <string name="add">Adicionar</string>
+    <string name="open_menu">Abrir menu</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="enter">Entrar</string>
+    <string name="forgot_my_password">Esqueci minha senha</string>
+    <string name="new_user">Novo usuário</string>
+    <string name="vehicles">Veículos</string>
+    <string name="vehicles_feature_description">Cadastre seus veículos para começar a registrar todo o histórico de manutenção.</string>
+    <string name="tickets">Multas</string>
+    <string name="tickets_feature_description">Tenha total controle sobre suas multas, controlando a qual veículo pertence.</string>
+    <string name="services">Serviços</string>
+    <string name="services_feature_description">Cadastre, verifique e consulte seus serviços agendados, bem como suas ordens de serviço arquivadas.</string>
+    <string name="maintenance_history">Histórico de manutenções</string>
+    <string name="maintenance_feature_description">Controle, gerencie e consulte o histórico de manutenção de seus veículos sempre que precisar.</string>
 </resources>

@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/nav_maintenance_history_fragment"
-        android:name="br.com.lambdateam.mycar.views.MaintenanceHistoryFragment"
+        android:name="br.com.lambdateam.mycar.views.maintenance.MaintenanceHistoryFragment"
         tools:layout="@layout/fragment_maintenance_history" />
 
 </navigation>

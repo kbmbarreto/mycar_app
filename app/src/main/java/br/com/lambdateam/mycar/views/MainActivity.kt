@@ -93,19 +93,16 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_home_fragment -> {
-                    title.text = "MyCar"
+                    title.text = getString(R.string.app_name)
                     menuButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu))
                     setupMenuButtonAction()
                 }
                 R.id.nav_maintenance_history_fragment -> {
-                    title.text = "Manutenções"
+                    title.text = getString(R.string.maintenances)
                     menuButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home))
                     menuButton.setOnClickListener {
                         navHostFragment.navController.navigate(R.id.nav_home_fragment)
                     }
-                }
-                else -> {
-
                 }
             }
         }
