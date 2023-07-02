@@ -1,5 +1,6 @@
 package br.com.lambdateam.mycar.views.maintenance
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ class MaintenanceHistoryAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<Maintenance> = listOf()
+    private var recoveryItems = listOf<Maintenance>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
@@ -28,7 +30,33 @@ class MaintenanceHistoryAdapter :
 
     fun setItems(items: List<Maintenance>) {
         this.items = items
+        this.recoveryItems = items
         notifyItemRangeChanged(0, items.size)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun search(text: String) {
+        if (text.isEmpty()) {
+            this.items = this.recoveryItems
+            notifyItemRangeChanged(0, recoveryItems.size)
+            return
+        }
+        val filter = items.filter {
+            it.vehicle?.description?.contains(text) == true ||
+                    it.km.toString().contains(text) ||
+                    it.amount.toString().contains(text) ||
+                    it.manufacturer.toString().contains(text) ||
+                    it.component?.component?.contains(text) == true ||
+                    it.maintenanceType?.maintenanceType?.contains(text) == true ||
+                    it.maintenanceDate?.contains(text) == true
+        }
+        if (filter.isNotEmpty()) {
+            this.items = filter
+            notifyDataSetChanged()
+        } else {
+            this.items = filter
+            notifyDataSetChanged()
+        }
     }
 
     inner class MaintenanceItem(view: View) : RecyclerView.ViewHolder(view) {
