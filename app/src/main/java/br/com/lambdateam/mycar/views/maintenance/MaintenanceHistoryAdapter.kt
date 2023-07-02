@@ -48,7 +48,6 @@ class MaintenanceHistoryAdapter :
                     it.km.toString().contains(text) ||
                     it.amount.toString().contains(text) ||
                     it.manufacturer?.manufacturer.toString().contains(text) ||
-                    it.vehicle?.description?.contains(text) == true ||
                     it.component?.component?.contains(text) == true ||
                     it.maintenanceType?.maintenanceType?.contains(text) == true ||
                     it.maintenanceDate?.contains(text) == true
