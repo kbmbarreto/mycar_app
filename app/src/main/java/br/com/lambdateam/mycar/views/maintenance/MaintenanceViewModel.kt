@@ -21,9 +21,11 @@ class MaintenanceViewModel(private val repository: ApiRepository) : ViewModel() 
         get() = _viewState
 
     fun getMaintenances() {
-        _viewState.value = ViewState.Loading
-        viewModelScope.launch {
-            afterGetMaintenance(repository.getMaintenanceWithDetails())
+        if (_maintenances.value == null) {
+            _viewState.value = ViewState.Loading
+            viewModelScope.launch {
+                afterGetMaintenance(repository.getMaintenanceWithDetails())
+            }
         }
     }
 
