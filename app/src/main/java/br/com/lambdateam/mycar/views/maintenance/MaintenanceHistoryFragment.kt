@@ -103,6 +103,9 @@ class MaintenanceHistoryFragment : Fragment() {
     }
 
     private fun setupList() {
+        maintenanceAdapter.onItemSelected = {
+            MaintenanceDetailActivity.start(requireContext(), it)
+        }
         rvMaintenance.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = maintenanceAdapter

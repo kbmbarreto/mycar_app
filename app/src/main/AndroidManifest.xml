@@ -12,28 +12,27 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mycar"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".views.maintenance.MaintenanceDetailActivity"
+            android:exported="false" />
         <!-- Atividade de login -->
         <activity
             android:name=".views.login.LoginActivity"
-            android:theme="@style/Base.Theme.Mycar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Base.Theme.Mycar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Tela principal -->
+        </activity> <!-- Tela principal -->
         <activity
             android:name=".views.main.MainActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
     </application>
 
 </manifest>

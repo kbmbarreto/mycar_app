@@ -27,4 +27,6 @@
     </plurals>
     <string name="login_error_description">Email e/ou senha incorretos, verifique e tente novamente!</string>
     <string name="loading">Carregando</string>
+    <string name="value">Valor:</string>
+    <string name="total">Total</string>
 </resources>

@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.lambdateam.mycar.R
-import br.com.lambdateam.mycar.model.maintenance.Maintenance
-import br.com.lambdateam.mycar.model.utils.convertDateFormat
-import br.com.lambdateam.mycar.model.utils.convertToCurrencyFormat
+import br.com.lambdateam.mycar.model.maintenance.MaintenancePresentModel
 
 class MaintenanceHistoryAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<Maintenance> = listOf()
-    private var recoveryItems = listOf<Maintenance>()
+    var onItemSelected: ((maintenance: MaintenancePresentModel) -> Unit)? = null
+
+    private var items: List<MaintenancePresentModel> = listOf()
+    private var recoveryItems = listOf<MaintenancePresentModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
@@ -30,7 +30,7 @@ class MaintenanceHistoryAdapter :
         (holder as? MaintenanceItem)?.bind(items[position])
     }
 
-    fun setItems(items: List<Maintenance>) {
+    fun setItems(items: List<MaintenancePresentModel>) {
         this.items = items
         this.recoveryItems = items
         notifyItemRangeChanged(0, items.size)
@@ -44,12 +44,12 @@ class MaintenanceHistoryAdapter :
             return
         }
         val filter = items.filter {
-            it.vehicle?.description?.contains(text) == true ||
-                    it.km.toString().contains(text) ||
-                    it.amount.toString().contains(text) ||
-                    it.manufacturer?.manufacturer.toString().contains(text) ||
-                    it.component?.component?.contains(text) == true ||
-                    it.maintenanceType?.maintenanceType?.contains(text) == true ||
+            it.vehicle?.contains(text) == true ||
+                    it.km?.contains(text) == true ||
+                    it.amount?.contains(text) == true ||
+                    it.manufacturer?.contains(text) == true ||
+                    it.component?.contains(text) == true ||
+                    it.maintenanceType?.contains(text) == true ||
                     it.maintenanceDate?.contains(text) == true
         }
         if (filter.isNotEmpty()) {
@@ -69,16 +69,14 @@ class MaintenanceHistoryAdapter :
         private val tvComponent by lazy { view.findViewById<TextView>(R.id.tv_maintenance_history_component) }
         private val tvAmount by lazy { view.findViewById<TextView>(R.id.tv_maintenance_history_amount) }
 
-        fun bind(item: Maintenance) {
-            tvTitle.text = item.vehicle?.description
-            tvDate.text = convertDateFormat(item.maintenanceDate.toString())
-            tvKm.text =
-                StringBuilder(item.km.toString()).append(view.context.getString(R.string.km))
-            tvType.text = item.maintenanceType?.maintenanceType
-            tvComponent.text = item.component?.component
-            item.amount?.let {
-                tvAmount.text = convertToCurrencyFormat(it)
-            }
+        fun bind(item: MaintenancePresentModel) {
+            view.setOnClickListener { onItemSelected?.invoke(item) }
+            tvTitle.text = item.vehicle
+            tvDate.text = item.maintenanceDate
+            tvKm.text = item.km
+            tvType.text = item.maintenanceType
+            tvComponent.text = item.component
+            tvAmount.text = item.amount
         }
     }
 }
