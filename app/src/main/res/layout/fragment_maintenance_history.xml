@@ -43,6 +43,7 @@
                 tools:visibility="visible" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/iv_maintenance_history_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -119,6 +120,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tv_maintenance_history_empty_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

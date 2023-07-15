@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ViewFlipper
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,8 @@ class MaintenanceHistoryFragment : Fragment() {
     private lateinit var tvCount: TextView
     private lateinit var ivCleanSearch: ImageView
     private lateinit var etSearch: EditText
+    private lateinit var btAdd: CardView
+    private lateinit var tvAddEmpty: TextView
     private val maintenanceAdapter = MaintenanceHistoryAdapter()
     private val viewModel by inject<MaintenanceViewModel>()
 
@@ -62,6 +65,12 @@ class MaintenanceHistoryFragment : Fragment() {
             }
             it.visibility = View.GONE
             closeKeyboard()
+        }
+        btAdd.setOnClickListener {
+            startActivity(AddMaintenanceActivity.getIntentLauncher(requireContext()))
+        }
+        tvAddEmpty.setOnClickListener {
+            startActivity(AddMaintenanceActivity.getIntentLauncher(requireContext()))
         }
     }
 
@@ -119,6 +128,8 @@ class MaintenanceHistoryFragment : Fragment() {
             etSearch = it.findViewById(R.id.et_maintenance_history_search)
             tvCount = it.findViewById(R.id.tv_maintenance_history_count)
             ivCleanSearch = it.findViewById(R.id.iv_maintenance_history_clean_search)
+            btAdd = it.findViewById(R.id.iv_maintenance_history_add)
+            tvAddEmpty = it.findViewById(R.id.tv_maintenance_history_empty_add)
         }
     }
 }

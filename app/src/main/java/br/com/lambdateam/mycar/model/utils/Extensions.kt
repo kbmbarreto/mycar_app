@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.CountDownTimer
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.core.widget.doAfterTextChanged
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -49,4 +52,14 @@ fun View.closeKeyboard() {
     val imm: InputMethodManager =
         this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(this.windowToken, 0)
+}
+
+fun Spinner.setOnItemSelected(run: (position: Int) -> Unit) {
+    this.onItemSelectedListener = object : OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            run(position)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
 }

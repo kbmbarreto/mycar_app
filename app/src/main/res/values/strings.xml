@@ -29,4 +29,13 @@
     <string name="loading">Carregando</string>
     <string name="value">Valor:</string>
     <string name="total">Total</string>
+    <string name="add_maintenance">Adicionar Manutenção</string>
+    <string name="component">Componente</string>
+    <string name="vehicle">Veículo</string>
+    <string name="maintenance_type">Manut. Tipo</string>
+    <string name="manufacturer">Fabricante</string>
+    <string name="amount">Valor</string>
+    <string name="next_km">Próximo KM</string>
+    <string name="date">Data</string>
+    <string name="select_date">Selecionar data</string>
 </resources>
