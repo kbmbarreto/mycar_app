@@ -1,5 +1,6 @@
 package br.com.lambdateam.mycar.model.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Spinner
 import androidx.core.widget.doAfterTextChanged
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -46,6 +48,13 @@ fun convertDateFormat(inputDate: String): String {
     val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val date: Date? = inputFormat.parse(inputDate)
     return date?.let { outputFormat.format(it) }.toString()
+}
+
+@SuppressLint("SimpleDateFormat")
+fun getStringDate(timestamp: Long, pattern: String): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = timestamp
+    return SimpleDateFormat(pattern).format(timestamp)
 }
 
 fun View.closeKeyboard() {

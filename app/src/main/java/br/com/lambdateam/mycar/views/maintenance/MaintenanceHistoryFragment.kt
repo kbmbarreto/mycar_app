@@ -1,5 +1,6 @@
 package br.com.lambdateam.mycar.views.maintenance
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ViewFlipper
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.lambdateam.mycar.R
 import br.com.lambdateam.mycar.model.utils.ViewState
 import br.com.lambdateam.mycar.model.utils.afterTextChangedDelayed
+import br.com.lambdateam.mycar.views.maintenance.AddMaintenanceActivity.Companion.RESULT_KEY
 import org.koin.android.ext.android.inject
 
 class MaintenanceHistoryFragment : Fragment() {
@@ -30,6 +33,18 @@ class MaintenanceHistoryFragment : Fragment() {
     private lateinit var tvAddEmpty: TextView
     private val maintenanceAdapter = MaintenanceHistoryAdapter()
     private val viewModel by inject<MaintenanceViewModel>()
+
+    private val addMaintenanceLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { res ->
+        if (res.resultCode == Activity.RESULT_OK) {
+            res.data?.getBooleanExtra(RESULT_KEY, false)?.let {
+                if(it) {
+                    viewModel.updateMaintenances()
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,10 +82,10 @@ class MaintenanceHistoryFragment : Fragment() {
             closeKeyboard()
         }
         btAdd.setOnClickListener {
-            startActivity(AddMaintenanceActivity.getIntentLauncher(requireContext()))
+            addMaintenanceLauncher.launch(AddMaintenanceActivity.getIntentLauncher(requireContext()))
         }
         tvAddEmpty.setOnClickListener {
-            startActivity(AddMaintenanceActivity.getIntentLauncher(requireContext()))
+            addMaintenanceLauncher.launch(AddMaintenanceActivity.getIntentLauncher(requireContext()))
         }
     }
 

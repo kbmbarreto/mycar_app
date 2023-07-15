@@ -1,5 +1,6 @@
 package br.com.lambdateam.mycar.views.maintenance
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -18,6 +19,7 @@ import androidx.core.widget.doAfterTextChanged
 import br.com.lambdateam.mycar.R
 import br.com.lambdateam.mycar.model.utils.ViewState
 import br.com.lambdateam.mycar.model.utils.delay
+import br.com.lambdateam.mycar.model.utils.getStringDate
 import br.com.lambdateam.mycar.model.utils.setOnItemSelected
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Calendar
@@ -73,15 +75,20 @@ class AddMaintenanceActivity : AppCompatActivity() {
 
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val calendarYear = calendar.get(Calendar.YEAR)
+        val calendarMonth = calendar.get(Calendar.MONTH)
+        val calendarDay = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
             this,
             { view, year, month, dayOfMonth ->
-                val backendDate = "$year-$month-$dayOfMonth"
-                val presentDate = "$dayOfMonth/${month + 1}/$year"
+                val selectedCalendar = Calendar.getInstance()
+                selectedCalendar.set(Calendar.YEAR, year)
+                selectedCalendar.set(Calendar.MONTH, month)
+                selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val timestamp = selectedCalendar.timeInMillis
+                val backendDate = getStringDate(timestamp, "yyyy-MM-dd")
+                val presentDate = getStringDate(timestamp, "dd/MM/yyyy")
                 tvDate.apply {
                     text = presentDate
                     visibility = View.VISIBLE
@@ -89,9 +96,9 @@ class AddMaintenanceActivity : AppCompatActivity() {
                 tvSelectDate.visibility = View.GONE
                 viewModel.setDate(backendDate)
             },
-            year,
-            month,
-            day
+            calendarYear,
+            calendarMonth,
+            calendarDay
         )
         datePickerDialog.show()
     }
@@ -146,6 +153,14 @@ class AddMaintenanceActivity : AppCompatActivity() {
         viewModel.isButtonEnabled.observe(this) {
             btAdd.isEnabled = it
         }
+        viewModel.isSuccess.observe(this) {
+            if (it) {
+                val data = Intent()
+                data.putExtra(RESULT_KEY, true)
+                setResult(Activity.RESULT_OK, data)
+                finish()
+            }
+        }
     }
 
     private fun handleViewState(it: ViewState?) {
@@ -174,6 +189,7 @@ class AddMaintenanceActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val RESULT_KEY = "RESULT_KEY"
         fun getIntentLauncher(context: Context) =
             Intent(context, AddMaintenanceActivity::class.java)
     }

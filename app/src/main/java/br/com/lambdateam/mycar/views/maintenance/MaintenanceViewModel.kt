@@ -36,6 +36,14 @@ class MaintenanceViewModel(private val repository: ApiRepository) : ViewModel() 
         }
     }
 
+    fun updateMaintenances() {
+        _viewState.value = ViewState.Loading
+        viewModelScope.launch {
+            afterGetMaintenance(repository.getMaintenanceWithDetails())
+        }
+    }
+
+
     private fun afterGetMaintenance(response: Response<List<Maintenance>>) {
         _viewState.postValue(ViewState.HideLoading)
         when {
@@ -51,7 +59,7 @@ class MaintenanceViewModel(private val repository: ApiRepository) : ViewModel() 
                     MaintenancePresentModel(
                         km = StringBuilder(it.km.toString()).append("KM").toString(),
                         maintenanceDate = convertDateFormat(it.maintenanceDate.toString()),
-                        nextKm = null,
+                        nextKm = StringBuilder(it.nextKm.toString()).append("KM").toString(),
                         amount = convertToCurrencyFormat(it.amount ?: .0),
                         manufacturer = it.manufacturer?.manufacturer,
                         vehicle = it.vehicle?.description,
