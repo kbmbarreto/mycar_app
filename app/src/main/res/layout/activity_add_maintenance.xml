@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/iv_add_maintenance_close"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_margin="16sp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/ic_close"
             app:tint="@color/primary" />
 

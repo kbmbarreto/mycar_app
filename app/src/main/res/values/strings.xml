@@ -38,4 +38,8 @@
     <string name="next_km">Próximo KM</string>
     <string name="date">Data</string>
     <string name="select_date">Selecionar data</string>
+    <string name="maintenance_detail">Detalhe da manutenção</string>
+    <string name="actions">Ações</string>
+    <string name="delete">Apagar</string>
+    <string name="edit">Editar</string>
 </resources>

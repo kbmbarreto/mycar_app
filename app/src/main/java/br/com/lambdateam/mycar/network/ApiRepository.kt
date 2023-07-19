@@ -69,4 +69,12 @@ class ApiRepository(private val api: Api, private val userSession: UserSession) 
             Response.error(400, "".toResponseBody())
         }
     }
+
+    suspend fun deleteMaintenance(id: String): Response<Unit> {
+        return try {
+            api.deleteMaintenance(id, "Bearer ${userSession.getToken()}")
+        } catch (_: Exception) {
+            Response.error(400, "".toResponseBody())
+        }
+    }
 }

@@ -2,6 +2,7 @@ package br.com.lambdateam.mycar.views.maintenance
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +22,9 @@ import br.com.lambdateam.mycar.R
 import br.com.lambdateam.mycar.model.utils.ViewState
 import br.com.lambdateam.mycar.model.utils.afterTextChangedDelayed
 import br.com.lambdateam.mycar.views.maintenance.AddMaintenanceActivity.Companion.RESULT_KEY
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
+
 
 class MaintenanceHistoryFragment : Fragment() {
 
@@ -39,7 +43,21 @@ class MaintenanceHistoryFragment : Fragment() {
     ) { res ->
         if (res.resultCode == Activity.RESULT_OK) {
             res.data?.getBooleanExtra(RESULT_KEY, false)?.let {
-                if(it) {
+                if (it) {
+                    showSuccessSnackBar("Manutenção adicionada com sucesso!")
+                    viewModel.updateMaintenances()
+                }
+            }
+        }
+    }
+
+    private val maintenanceDetailLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { res ->
+        if (res.resultCode == Activity.RESULT_OK) {
+            res.data?.getBooleanExtra(MaintenanceDetailActivity.RESULT_KEY, false)?.let {
+                if (it) {
+                    showSuccessSnackBar("Manutenção excluída com sucesso!")
                     viewModel.updateMaintenances()
                 }
             }
@@ -108,6 +126,16 @@ class MaintenanceHistoryFragment : Fragment() {
         }
     }
 
+    private fun showSuccessSnackBar(message: String) {
+        view?.let {
+            val snackBar =
+                Snackbar.make(it, message, Snackbar.LENGTH_LONG)
+            snackBar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.green))
+            snackBar.setActionTextColor(Color.WHITE)
+            snackBar.show()
+        }
+    }
+
     private fun handleViewState(it: ViewState?) {
         when (it) {
             ViewState.Loading -> {
@@ -128,7 +156,12 @@ class MaintenanceHistoryFragment : Fragment() {
 
     private fun setupList() {
         maintenanceAdapter.onItemSelected = {
-            MaintenanceDetailActivity.start(requireContext(), it)
+            maintenanceDetailLauncher.launch(
+                MaintenanceDetailActivity.getIntentLauncher(
+                    requireContext(),
+                    it
+                )
+            )
         }
         rvMaintenance.apply {
             layoutManager = LinearLayoutManager(requireContext())

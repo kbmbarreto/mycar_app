@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MaintenancePresentModel(
+    val id: Int?,
     val km: String?,
     val maintenanceDate: String?,
     val nextKm: String?,

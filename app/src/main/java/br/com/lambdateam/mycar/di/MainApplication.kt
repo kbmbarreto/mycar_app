@@ -8,6 +8,7 @@ import br.com.lambdateam.mycar.sharedpreferences.UserSessionImpl
 import br.com.lambdateam.mycar.views.login.LoginViewModel
 import br.com.lambdateam.mycar.views.main.MainViewModel
 import br.com.lambdateam.mycar.views.maintenance.AddMaintenanceViewModel
+import br.com.lambdateam.mycar.views.maintenance.MaintenanceDetailViewModel
 import br.com.lambdateam.mycar.views.maintenance.MaintenanceViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -35,6 +36,7 @@ val appModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get()) }
     viewModel { AddMaintenanceViewModel(get()) }
+    viewModel { MaintenanceDetailViewModel(get()) }
     single<Api> {
         val retrofit = get() as Retrofit
         retrofit.create(Api::class.java)

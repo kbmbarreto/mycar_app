@@ -57,6 +57,7 @@ class MaintenanceViewModel(private val repository: ApiRepository) : ViewModel() 
                 )
                 response.body()?.map {
                     MaintenancePresentModel(
+                        id = it.id,
                         km = StringBuilder(it.km.toString()).append("KM").toString(),
                         maintenanceDate = convertDateFormat(it.maintenanceDate.toString()),
                         nextKm = StringBuilder(it.nextKm.toString()).append("KM").toString(),
