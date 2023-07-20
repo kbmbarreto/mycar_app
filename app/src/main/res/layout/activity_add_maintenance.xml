@@ -275,7 +275,7 @@
                 android:layout_marginVertical="8dp"
                 android:hint="@string/amount"
                 android:imeOptions="actionDone"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
 
