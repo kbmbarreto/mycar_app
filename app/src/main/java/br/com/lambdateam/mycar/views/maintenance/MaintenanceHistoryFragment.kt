@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.lambdateam.mycar.R
+import br.com.lambdateam.mycar.model.utils.DataCenter
 import br.com.lambdateam.mycar.model.utils.ViewState
 import br.com.lambdateam.mycar.model.utils.afterTextChangedDelayed
 import br.com.lambdateam.mycar.views.maintenance.AddMaintenanceActivity.Companion.RESULT_KEY
@@ -58,6 +59,11 @@ class MaintenanceHistoryFragment : Fragment() {
             res.data?.getBooleanExtra(MaintenanceDetailActivity.RESULT_KEY, false)?.let {
                 if (it) {
                     showSuccessSnackBar("Manutenção excluída com sucesso!")
+                    viewModel.updateMaintenances()
+                }
+            }
+            res.data?.getBooleanExtra(MaintenanceDetailActivity.SHOULD_UPDATE_LIST, false)?.let {
+                if (it) {
                     viewModel.updateMaintenances()
                 }
             }
@@ -146,7 +152,7 @@ class MaintenanceHistoryFragment : Fragment() {
                 vfMaintenance.displayedChild = 0
             }
 
-            ViewState.Empty, ViewState.Error -> {
+            ViewState.Empty, is ViewState.Error -> {
                 vfMaintenance.displayedChild = 2
             }
 
@@ -155,13 +161,16 @@ class MaintenanceHistoryFragment : Fragment() {
     }
 
     private fun setupList() {
-        maintenanceAdapter.onItemSelected = {
-            maintenanceDetailLauncher.launch(
-                MaintenanceDetailActivity.getIntentLauncher(
-                    requireContext(),
-                    it
+        maintenanceAdapter.onItemSelected = { presentModel ->
+            viewModel.maintenancesResponse.value?.find { item -> item.id == presentModel.id }?.let {
+                DataCenter.selectedMaintenance = it
+                maintenanceDetailLauncher.launch(
+                    MaintenanceDetailActivity.getIntentLauncher(
+                        requireContext(),
+                        presentModel,
+                    )
                 )
-            )
+            }
         }
         rvMaintenance.apply {
             layoutManager = LinearLayoutManager(requireContext())

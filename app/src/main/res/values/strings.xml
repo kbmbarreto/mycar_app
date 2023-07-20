@@ -42,4 +42,6 @@
     <string name="actions">Ações</string>
     <string name="delete">Apagar</string>
     <string name="edit">Editar</string>
+    <string name="edit_maintenance">Editar manutenção</string>
+    <string name="save">Salvar</string>
 </resources>

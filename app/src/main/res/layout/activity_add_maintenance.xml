@@ -18,18 +18,18 @@
             android:id="@+id/iv_add_maintenance_close"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_arrow_left"
             app:tint="@color/primary" />
 
         <TextView
-            android:id="@+id/tv_maintenance_detail_vehicle"
+            android:id="@+id/tv_maintenance_detail_header_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:text="@string/add_maintenance"
             android:textColor="@color/primary"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/add_maintenance" />
 
     </LinearLayout>
 

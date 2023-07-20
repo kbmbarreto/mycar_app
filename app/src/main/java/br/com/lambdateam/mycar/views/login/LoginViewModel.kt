@@ -52,7 +52,7 @@ class LoginViewModel(private val repository: ApiRepository, private val userSess
             }
 
             else -> {
-                _viewState.postValue(ViewState.Error)
+                _viewState.postValue(ViewState.Error())
             }
         }
     }

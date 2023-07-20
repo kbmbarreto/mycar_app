@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.lambdateam.mycar.model.maintenance.IdModel
+import br.com.lambdateam.mycar.model.maintenance.Maintenance
 import br.com.lambdateam.mycar.model.maintenance.MaintenanceComponent
 import br.com.lambdateam.mycar.model.maintenance.MaintenanceDTO
 import br.com.lambdateam.mycar.model.maintenance.MaintenanceManufacturer
 import br.com.lambdateam.mycar.model.maintenance.MaintenanceType
 import br.com.lambdateam.mycar.model.maintenance.MaintenanceVehicle
+import br.com.lambdateam.mycar.model.utils.DataCenter
 import br.com.lambdateam.mycar.model.utils.ViewState
 import br.com.lambdateam.mycar.network.ApiRepository
 import kotlinx.coroutines.launch
@@ -44,6 +46,11 @@ class AddMaintenanceViewModel(private val repository: ApiRepository) : ViewModel
     val isSuccess: LiveData<Boolean>
         get() = _isSuccess
 
+    private val _editPresentModel = MutableLiveData<Maintenance>()
+    val editPresentModel: LiveData<Maintenance>
+        get() = _editPresentModel
+
+    private val _isEditMode = MutableLiveData(false)
     private val _km = MutableLiveData<Double?>()
     private val _nextKm = MutableLiveData<Double?>()
     private val _amount = MutableLiveData<Double?>()
@@ -234,19 +241,40 @@ class AddMaintenanceViewModel(private val repository: ApiRepository) : ViewModel
             IdModel(_manufacturer.value?.or(0)?.plus(1) ?: 0),
             IdModel(_vehicle.value?.or(0)?.plus(1) ?: 0),
             IdModel(_component.value?.or(0)?.plus(1) ?: 0),
-            IdModel(_type.value?.or(0)?.plus(1) ?: 0)
+            IdModel(_type.value?.or(0)?.plus(1) ?: 0),
+            id = _editPresentModel.value?.id
         )
         viewModelScope.launch {
-            repository.createMaintenance(maintenance).let { response ->
-                when {
-                    response.isSuccessful && response.body() != null -> {
-                        _viewState.postValue(ViewState.HideLoading)
-                        _isSuccess.postValue(true)
-                    }
+            if (_isEditMode.value == true) {
+                repository.updateMaintenance(maintenance).let { response ->
+                    when {
+                        response.isSuccessful && response.body() != null -> {
+                            _viewState.postValue(ViewState.HideLoading)
+                            _isSuccess.postValue(true)
+                        }
 
-                    else -> _viewState.postValue(ViewState.Error)
+                        else -> _viewState.postValue(ViewState.Error())
+                    }
+                }
+            } else {
+                repository.createMaintenance(maintenance).let { response ->
+                    when {
+                        response.isSuccessful && response.body() != null -> {
+                            _viewState.postValue(ViewState.HideLoading)
+                            _isSuccess.postValue(true)
+                        }
+
+                        else -> _viewState.postValue(ViewState.Error())
+                    }
                 }
             }
+        }
+    }
+
+    fun setEditMaintenance(isEditMode: Boolean) {
+        if (isEditMode) {
+            _isEditMode.value = true
+            _editPresentModel.value = DataCenter.selectedMaintenance
         }
     }
 }

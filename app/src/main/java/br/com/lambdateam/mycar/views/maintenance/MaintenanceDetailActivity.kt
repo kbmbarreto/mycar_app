@@ -3,18 +3,23 @@ package br.com.lambdateam.mycar.views.maintenance
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import br.com.lambdateam.mycar.R
 import br.com.lambdateam.mycar.model.maintenance.MaintenancePresentModel
 import br.com.lambdateam.mycar.model.utils.ViewState
 import br.com.lambdateam.mycar.model.utils.delay
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MaintenanceDetailActivity : AppCompatActivity() {
@@ -30,6 +35,23 @@ class MaintenanceDetailActivity : AppCompatActivity() {
     private val tvAmount by lazy { findViewById<TextView>(R.id.tv_maintenance_detail_amount) }
     private val tvDelete by lazy { findViewById<TextView>(R.id.tv_maintenance_detail_delete) }
     private val loading by lazy { findViewById<LinearLayout>(R.id.ll_maintenance_detail_loading) }
+    private val tvEdit by lazy { findViewById<TextView>(R.id.tv_maintenance_detail_edit) }
+
+    private var maintenanceChanged = false
+
+    private val editMaintenanceLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { res ->
+        if (res.resultCode == Activity.RESULT_OK) {
+            res.data?.getBooleanExtra(AddMaintenanceActivity.RESULT_KEY, false)?.let {
+                if (it) {
+                    maintenanceChanged = true
+                    showSnackBarMessage("Manutenção editada com sucesso!", R.color.green)
+                    viewModel.fetchMaintenanceDetail()
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +77,23 @@ class MaintenanceDetailActivity : AppCompatActivity() {
 
     private fun setListeners() {
         ivClose.setOnClickListener {
-            finish()
+            if (maintenanceChanged) {
+                val data = Intent()
+                data.putExtra(SHOULD_UPDATE_LIST, true)
+                setResult(Activity.RESULT_OK, data)
+                finish()
+            } else finish()
         }
         tvDelete.setOnClickListener {
             showDeleteConfirmationDialog()
+        }
+        tvEdit.setOnClickListener {
+            editMaintenanceLauncher.launch(
+                AddMaintenanceActivity.getIntentLauncher(
+                    this,
+                    true
+                )
+            )
         }
     }
 
@@ -71,6 +106,18 @@ class MaintenanceDetailActivity : AppCompatActivity() {
         }
         builder.setNegativeButton("Não", null)
         builder.show()
+    }
+
+    private fun showSnackBarMessage(message: String, @ColorRes color: Int) {
+        val snackBar =
+            Snackbar.make(
+                findViewById(R.id.rr_maintenance_detail_container),
+                message,
+                Snackbar.LENGTH_LONG
+            )
+        snackBar.setBackgroundTint(ContextCompat.getColor(this, color))
+        snackBar.setActionTextColor(Color.WHITE)
+        snackBar.show()
     }
 
     private fun getParcelable() {
@@ -100,9 +147,13 @@ class MaintenanceDetailActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
             }
 
-            ViewState.Error -> {
+            is ViewState.Error -> {
                 handleViewState(ViewState.HideLoading)
-                showErrorAlert()
+                if (it.message != null) {
+                    showSnackBarMessage(it.message, R.color.red)
+                } else {
+                    showErrorAlert()
+                }
             }
 
             ViewState.HideLoading -> {
@@ -129,6 +180,7 @@ class MaintenanceDetailActivity : AppCompatActivity() {
 
     companion object {
         const val RESULT_KEY = "RESULT_KEY"
+        const val SHOULD_UPDATE_LIST = "SHOULD_UPDATE_LIST"
         private const val MAINTENANCE_ITEM = "MAINTENANCE_ITEM"
         fun getIntentLauncher(context: Context, maintenance: MaintenancePresentModel) =
             Intent(context, MaintenanceDetailActivity::class.java).apply {

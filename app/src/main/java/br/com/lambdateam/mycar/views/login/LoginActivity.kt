@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            ViewState.Error -> {
+            is ViewState.Error -> {
                 handleViewState(ViewState.HideLoading)
                 Toast.makeText(
                     this,

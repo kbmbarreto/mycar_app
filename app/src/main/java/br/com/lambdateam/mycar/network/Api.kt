@@ -15,6 +15,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface Api {
@@ -62,4 +63,18 @@ interface Api {
         @Path("id") id: String,
         @Header("Authorization") auth: String,
     ): Response<Unit>
+
+    @PUT("maintenances/{id}")
+    @Headers("Content-Type: application/json")
+    suspend fun updateMaintenance(
+        @Header("Authorization") auth: String,
+        @Body maintenance: MaintenanceDTO,
+        @Path("id") id: String
+    ): Response<Unit>
+
+    @GET("maintenances/{id}")
+    suspend fun getMaintenanceById(
+        @Header("Authorization") auth: String,
+        @Path("id") id: String
+    ): Response<Maintenance>
 }

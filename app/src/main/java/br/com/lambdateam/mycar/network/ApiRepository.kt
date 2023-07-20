@@ -77,4 +77,24 @@ class ApiRepository(private val api: Api, private val userSession: UserSession) 
             Response.error(400, "".toResponseBody())
         }
     }
+
+    suspend fun updateMaintenance(maintenanceDTO: MaintenanceDTO): Response<Unit> {
+        return try {
+            api.updateMaintenance(
+                "Bearer ${userSession.getToken()}",
+                maintenanceDTO,
+                maintenanceDTO.id.toString()
+            )
+        } catch (_: Exception) {
+            Response.error(400, "".toResponseBody())
+        }
+    }
+
+    suspend fun getMaintenanceById(id: String): Response<Maintenance> {
+        return try {
+            api.getMaintenanceById("Bearer ${userSession.getToken()}", id)
+        } catch (_: Exception) {
+            Response.error(400, "".toResponseBody())
+        }
+    }
 }

@@ -55,6 +55,7 @@ class MaintenanceViewModel(private val repository: ApiRepository) : ViewModel() 
                         ViewState.HideLoading
                     }
                 )
+                _maintenancesResponse.postValue(response.body())
                 response.body()?.map {
                     MaintenancePresentModel(
                         id = it.id,
@@ -73,7 +74,7 @@ class MaintenanceViewModel(private val repository: ApiRepository) : ViewModel() 
             }
 
             else -> {
-                _viewState.postValue(ViewState.Error)
+                _viewState.postValue(ViewState.Error())
             }
         }
     }

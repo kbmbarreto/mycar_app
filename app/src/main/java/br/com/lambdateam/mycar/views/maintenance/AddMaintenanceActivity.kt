@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -17,7 +18,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import br.com.lambdateam.mycar.R
+import br.com.lambdateam.mycar.model.maintenance.Maintenance
 import br.com.lambdateam.mycar.model.utils.ViewState
+import br.com.lambdateam.mycar.model.utils.convertDateFormat
 import br.com.lambdateam.mycar.model.utils.delay
 import br.com.lambdateam.mycar.model.utils.getStringDate
 import br.com.lambdateam.mycar.model.utils.setOnItemSelected
@@ -27,6 +30,7 @@ import java.util.Calendar
 
 class AddMaintenanceActivity : AppCompatActivity() {
 
+    private val tvHeaderTitle by lazy { findViewById<TextView>(R.id.tv_maintenance_detail_header_title) }
     private val loading by lazy { findViewById<LinearLayout>(R.id.ll_add_maintenance_loading) }
     private val spType by lazy { findViewById<Spinner>(R.id.sp_add_maintenance_type) }
     private val spVehicle by lazy { findViewById<Spinner>(R.id.sp_add_maintenance_vehicle) }
@@ -42,14 +46,43 @@ class AddMaintenanceActivity : AppCompatActivity() {
 
     private val viewModel by viewModel<AddMaintenanceViewModel>()
 
+    private var isEditMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_maintenance)
 
         setupObservers()
         setupListeners()
-        onViewLoaded()
+        getParcelable()
     }
+
+    private fun getParcelable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkExtras(
+                intent.getBooleanExtra(
+                    EDIT_MAINTENANCE,
+                    false
+                )
+            )
+        } else {
+            checkExtras(intent.getBooleanExtra(EDIT_MAINTENANCE, false))
+        }
+    }
+
+    private fun checkExtras(isEditMode: Boolean) {
+        this.isEditMode = isEditMode
+        if (isEditMode) {
+            tvHeaderTitle.text = getString(R.string.edit_maintenance)
+            btAdd.text = getString(R.string.save)
+            onViewLoaded()
+        } else {
+            tvHeaderTitle.text = getString(R.string.add_maintenance)
+            btAdd.text = getString(R.string.add)
+            onViewLoaded()
+        }
+    }
+
 
     private fun setupListeners() {
         ivClose.setOnClickListener { finish() }
@@ -161,6 +194,38 @@ class AddMaintenanceActivity : AppCompatActivity() {
                 finish()
             }
         }
+        viewModel.editPresentModel.observe(this) {
+            fillEditModel(it)
+        }
+    }
+
+    private fun fillEditModel(model: Maintenance?) {
+        model?.let { maintenance ->
+            etKm.setText(maintenance.km.toString())
+            etNextKm.setText(maintenance.nextKm.toString())
+            etAmount.setText(maintenance.amount.toString())
+            maintenance.maintenanceType?.id?.let {
+                spType.setSelection(it - 1)
+            }
+            maintenance.vehicle?.id?.let {
+                spVehicle.setSelection(it - 1)
+            }
+            maintenance.component?.id?.let {
+                spComponent.setSelection(it - 1)
+            }
+            maintenance.manufacturer?.id?.let {
+                spManufacturer.setSelection(it - 1)
+            }
+            maintenance.maintenanceDate?.let {
+                val presentDate = convertDateFormat(it)
+                tvDate.apply {
+                    text = presentDate
+                    visibility = View.VISIBLE
+                }
+                tvSelectDate.visibility = View.GONE
+                viewModel.setDate(it)
+            }
+        }
     }
 
     private fun handleViewState(it: ViewState?) {
@@ -169,7 +234,7 @@ class AddMaintenanceActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
             }
 
-            ViewState.Error -> {
+            is ViewState.Error -> {
                 handleViewState(ViewState.HideLoading)
                 showErrorAlert()
             }
@@ -177,11 +242,16 @@ class AddMaintenanceActivity : AppCompatActivity() {
             ViewState.HideLoading -> {
                 delay {
                     loading.visibility = View.GONE
+                    checkIsEditMode()
                 }
             }
 
             else -> {}
         }
+    }
+
+    private fun checkIsEditMode() {
+        viewModel.setEditMaintenance(isEditMode)
     }
 
     private fun onViewLoaded() {
@@ -190,7 +260,10 @@ class AddMaintenanceActivity : AppCompatActivity() {
 
     companion object {
         const val RESULT_KEY = "RESULT_KEY"
-        fun getIntentLauncher(context: Context) =
-            Intent(context, AddMaintenanceActivity::class.java)
+        const val EDIT_MAINTENANCE = "EDIT_MAINTENANCE"
+        fun getIntentLauncher(context: Context, isEditMode: Boolean? = false) =
+            Intent(context, AddMaintenanceActivity::class.java).apply {
+                putExtra(EDIT_MAINTENANCE, isEditMode)
+            }
     }
 }
