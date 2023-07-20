@@ -11,6 +11,7 @@
         android:id="@+id/ll_maintenance_detail_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primary"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -20,14 +21,14 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/ic_arrow_left"
-            app:tint="@color/primary" />
+            app:tint="@color/white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:text="@string/maintenance_detail"
-            android:textColor="@color/primary"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -37,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_maintenance_detail_header"
+        android:layout_marginTop="16dp"
         android:orientation="vertical">
 
         <TextView
@@ -45,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:gravity="end"
-            android:textColor="#AFAFAF"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:text="08/05/2023" />
 
