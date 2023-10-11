@@ -25,7 +25,8 @@ class MainApplication : Application() {
             androidLogger()
             androidContext(this@MainApplication)
             modules(appModule, retrofit)
-            properties(mapOf(PROPERTY_BASE_URL to "http://kleber2732.c34.integrator.host/mycar/v1/"))
+            properties(mapOf(PROPERTY_BASE_URL to "http://192.168.15.24:8003/mycar/v1/"))
+            //properties(mapOf(PROPERTY_BASE_URL to "http://kleber2732.c34.integrator.host/mycar/v1/"))
         }
     }
 }
